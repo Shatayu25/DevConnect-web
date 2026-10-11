@@ -1,6 +1,16 @@
+import { Link } from "react-router-dom";
+import useBack from "../hooks/useBack";
+
 function Signup() {
+  const moveBack = useBack();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen font-lato bg-gray-50 p-4">
+      <button
+        onClick={moveBack}
+        className="bg-orange-500 hover:bg-orange-600 transition-all rounded-full text-sm w-fit px-4 py-2 absolute top-4 left-3"
+      >
+        &larr; Back
+      </button>
       <div className="flex flex-col items-center gap-1 mb-8">
         <h1 className="text-4xl text-orange-500 font-bold tracking-tight">
           Welcome!
@@ -72,12 +82,13 @@ function Signup() {
           />
         </div>
 
-          <button
-            type="submit"
-            className="mt-4 w-fit mx-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors"
-          >
-            Create Account
-          </button>
+        <Link
+          to="/user/feed"
+          type="submit"
+          className="mt-4 w-fit mx-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors"
+        >
+          Create Account
+        </Link>
       </form>
     </div>
   );
