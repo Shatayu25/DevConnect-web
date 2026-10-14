@@ -1,8 +1,35 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useBack from "../hooks/useBack";
+import { useForm } from "react-hook-form";
+import Error from "../ui/Error";
+import { BASE_URL } from "../utils/constants";
+
+const baseUrl = BASE_URL;
 
 function Signup() {
   const moveBack = useBack();
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
+
+  async function onSubmit(data) {
+    try {
+      const res = await fetch(`${baseUrl}/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      await res.json();
+      if (res.ok) {
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen font-lato bg-gray-50 p-4">
       <button
@@ -20,51 +47,76 @@ function Signup() {
         </p>
       </div>
 
-      <form className="flex flex-col w-full max-w-md bg-white p-8 gap-5 rounded-2xl shadow-lg border border-gray-100">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col w-full max-w-md bg-white p-8 gap-5 rounded-2xl shadow-lg border border-gray-100"
+      >
         <div className="flex flex-row gap-5">
           <div className="flex flex-col gap-1 w-full">
             <label
-              htmlFor="first-name"
+              htmlFor="firstName"
               className="text-sm font-semibold text-gray-700"
             >
               First name
             </label>
             <input
               type="text"
-              id="first-name"
+              id="firstName"
+              {...register("firstName", {
+                required: "This field is required",
+              })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
               placeholder="Shatayu"
             />
+            {errors?.firstName?.message && (
+              <Error error={errors?.firstName?.message} />
+            )}
           </div>
           <div className="flex flex-col gap-1 w-full">
             <label
-              htmlFor="last-name"
+              htmlFor="lastName"
               className="text-sm font-semibold text-gray-700"
             >
               Last name
             </label>
             <input
               type="text"
-              id="last-name"
+              id="lastName"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
               placeholder="Deshpande"
+              {...register("lastName", {
+                required: "This field is required",
+              })}
             />
+            {errors?.lastName?.message && (
+              <Error error={errors?.lastName?.message} />
+            )}
           </div>
         </div>
 
         <div className="flex flex-col gap-1">
           <label
-            htmlFor="email"
+            htmlFor="emailId"
             className="text-sm font-semibold text-gray-700"
           >
             Email Address
           </label>
           <input
             type="email"
-            id="email"
+            id="emailId"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
             placeholder="sd@example.com"
+            {...register("emailId", {
+              required: "EmailId is required",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Please provide a valid emailId address",
+              },
+            })}
           />
+          {errors?.emailId?.message && (
+            <Error error={errors?.emailId?.message} />
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -79,16 +131,29 @@ function Signup() {
             id="password"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
             placeholder="••••••••"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password should at-least have 8 characters",
+              },
+              maxLength: {
+                value: 16,
+                message: "Max 16 characters are required",
+              },
+            })}
           />
+          {errors?.password?.message && (
+            <Error error={errors?.password?.message} />
+          )}
         </div>
 
-        <Link
-          to="/user/feed"
+        <button
           type="submit"
           className="mt-4 w-fit mx-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors"
         >
           Create Account
-        </Link>
+        </button>
       </form>
     </div>
   );

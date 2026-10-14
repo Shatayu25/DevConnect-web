@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import Profile from "./Profile";
 
-const pages = ["/", "/signup", "/login"];
+const pages = ["/", "/login", "/signup"];
 
 function Header() {
   const location = useLocation();

@@ -9,23 +9,33 @@ import ProfileView from "./pages/ProfileView";
 import ProfileEdit from "./pages/ProfileEdit";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile/view" element={<ProfileView />} />
-          <Route path="/profile/edit" element={<ProfileEdit />} />
-          <Route path="/user/feed" element={<Feed />} />
-          <Route path="/user/connections" element={<Connections />} />
-          <Route path="/user/requests/received" element={<Requests />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* here AppLayout is the layout route */}
+          <Route element={<AppLayout />}>
+          {/* Public Pages */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+
+            {/* Private Pages */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile/view" element={<ProfileView />} />
+              <Route path="/profile/edit" element={<ProfileEdit />} />
+              <Route path="/user/feed" element={<Feed />} />
+              <Route path="/user/connections" element={<Connections />} />
+              <Route path="/user/requests/received" element={<Requests />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

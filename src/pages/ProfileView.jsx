@@ -1,4 +1,8 @@
+import { useAuth } from "../context/AuthContext";
+
 function ProfileView() {
+  const { user } = useAuth();
+
   return (
     <div className="bg-white flex flex-col rounded-2xl shadow-xl border border-gray-100 w-full max-w-sm overflow-hidden my-10">
       <img
@@ -10,7 +14,7 @@ function ProfileView() {
       <div className="flex flex-col p-6 gap-1">
         <div className="flex justify-between items-baseline mb-1">
           <h2 className="text-2xl font-bold text-slate-800">
-            Shatayu Deshpande
+            {user.data.firstName}&nbsp;{user.data.lastName}
           </h2>
           <span className="text-lg font-semibold text-gray-500">25</span>
         </div>
