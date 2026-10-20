@@ -34,6 +34,11 @@ function NavBar({ handleClick }) {
         </Link>
       </li>
       <li>
+        <Link to="/profile/edit/password" onClick={handleClick}>
+          Edit Password
+        </Link>
+      </li>
+      <li>
         <button onClick={handleLogout}>Logout</button>
       </li>
     </ul>

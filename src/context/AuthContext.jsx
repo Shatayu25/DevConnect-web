@@ -9,6 +9,7 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  
   async function fetchProfile() {
     try {
       const res = await fetch(`${baseUrl}/profile/view`, {
@@ -25,10 +26,12 @@ function AuthProvider({ children }) {
       setIsLoading(false);
     }
   }
-
+  
   useEffect(() => {
     fetchProfile();
   }, []);
+  
+  if (isLoading)  return <div className="text-3xl flex justify-center items-center text-orange-500 font-bold min-h-screen">Loading...</div> 
 
   return (
     <AuthContext.Provider value={{ user, setUser, isLoading, fetchProfile }}>

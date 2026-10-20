@@ -11,6 +11,7 @@ import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import PasswordEdit from "./pages/PasswordEdit";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/profile/view" element={<ProfileView />} />
               <Route path="/profile/edit" element={<ProfileEdit />} />
+              <Route path="/profile/edit/password" element={<PasswordEdit />} />
               <Route path="/user/feed" element={<Feed />} />
               <Route path="/user/connections" element={<Connections />} />
               <Route path="/user/requests/received" element={<Requests />} />

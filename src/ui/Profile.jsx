@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import NavBar from "./NavBar";
+import { useAuth } from "../context/AuthContext";
 
 function Profile() {
   const [show, setShow] = useState("");
+  const { user } = useAuth();
 
   function handleClick() {
     setShow((show) => !show);
@@ -18,7 +20,7 @@ function Profile() {
         <span>
           <FaRegUser />
         </span>
-        <p>Shatayu Deshpande</p>
+        {user.data.firstName}&nbsp;{user.data.lastName}
       </button>
       {show ? <NavBar handleClick={handleClick} /> : ""}
     </>
