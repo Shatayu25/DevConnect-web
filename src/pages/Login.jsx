@@ -101,7 +101,7 @@ function Login() {
               },
               maxLength: {
                 value: 16,
-                message: "Max 16 characters are required",
+                message: "Max 16 characters allowed",
               },
             })}
           />

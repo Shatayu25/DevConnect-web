@@ -4,40 +4,76 @@ import { useAuth } from "../context/AuthContext";
 import useBack from "../hooks/useBack";
 import Error from "../ui/Error";
 import { BASE_URL } from "../utils/constants";
+import { useEffect, useState } from "react";
 
 function ProfileEdit() {
   const moveBack = useBack();
   const { user, setUser } = useAuth();
+  const [imageUrl, setImageUrl] = useState(user.data.photoUrl);
   const { register, formState, handleSubmit } = useForm({
     defaultValues: user.data,
   });
-  const navigate = useNavigate();
   const { errors } = formState;
+  const navigate = useNavigate();
   const base_url = BASE_URL;
 
+  // a event handler function to convert the image file to its url
+  function handlePhotoUrl(e) {
+    const file = e.target.files[0];
+    if (file) {
+      // Returns a string containing a unique blob URL
+      setImageUrl(URL.createObjectURL(file));
+    }
+  }
+
+  // cleanup function to clean up the memory, when the url changes
+  useEffect(() => {
+    return () => {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+    };
+  }, [imageUrl]);
+
   async function onSubmit(data) {
-    const { firstName, lastName, age, gender, about, skills, photoUrl } = data;
+    const { firstName, lastName, photoUrl, gender, age, about, skills } = data;
+    const cleanData = {
+      firstName,
+      lastName,
+      photoUrl,
+      gender,
+      age,
+      about,
+      skills,
+    };
+    // FormData API is used to send the image file along with other data to the database
+    const formData = new FormData();
+
+    Object.entries(cleanData).forEach(([key, value]) => {
+      if (key === "photoUrl") {
+        // for first load the image is FileList object and for the next load it ll be a string hence typeof is used.
+        if (typeof value === "object" && value.length > 0) {
+          formData.append(key, value[0]);
+        }
+      } else {
+        formData.append(key, value);
+      }
+    });
+
     const res = await fetch(`${base_url}/profile/edit`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        age,
-        gender,
-        about,
-        skills,
-        photoUrl,
-      }),
+      body: formData,
       credentials: "include",
     });
+    const updatedUser = await res.json();
     if (res.ok) {
-      setUser({ data });
+      setUser(updatedUser);
       navigate("/profile/view");
     }
   }
+
+  const displayUrl =
+    imageUrl.startsWith("http") || imageUrl.startsWith("blob")
+      ? imageUrl
+      : `${base_url}${imageUrl}`;
 
   return (
     <>
@@ -55,13 +91,14 @@ function ProfileEdit() {
         >
           <div className="flex flex-col items-center gap-4 w-1/3">
             <img
-              src={user.data.photoUrl}
+              src={displayUrl}
               alt="Profile"
               className="w-48 h-48 object-cover rounded-xl bg-gray-100 border-2 border-orange-100 shadow-sm"
             />
             <input
               type="file"
               id="photoUrl"
+              onChange={handlePhotoUrl}
               accept="image/png, image/jpeg"
               className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-600 hover:file:bg-orange-100 transition-colors cursor-pointer"
               {...register("photoUrl")}
@@ -191,7 +228,11 @@ function ProfileEdit() {
                   className="w-full px-4 py-2 focus:outline-none focus:ring-2 border-gray-300 border transition-all rounded-lg focus:ring-orange-500"
                   {...register("skills", {
                     validate: (value) => {
-                      const skillsArray = value
+                      // to check when the page first loads the value of the skills input is a array or string
+                      const stringValue = Array.isArray(value)
+                        ? value.join(",")
+                        : value;
+                      const skillsArray = stringValue
                         .split(",")
                         .filter((skill) => skill.trim() !== "");
                       if (skillsArray.length < 2)

@@ -1,4 +1,8 @@
+import { useAuth } from "../context/AuthContext";
+
 function Card() {
+  const { user } = useAuth();
+
   return (
     <div className="bg-white flex flex-col rounded-2xl shadow-xl border border-gray-100 w-full max-w-sm overflow-hidden my-10">
       <img
@@ -10,20 +14,23 @@ function Card() {
       <div className="flex flex-col p-6 gap-1">
         <div className="flex justify-between items-baseline mb-1">
           <h2 className="text-2xl font-bold text-slate-800">
-            Shatayu Deshpande
+            {user.data.firstName}&nbsp;{user.data.lastName}
           </h2>
           <span className="text-lg font-semibold text-gray-500">25</span>
         </div>
 
-        <p className="text-xs font-bold text-orange-500 uppercase tracking-wider mb-2">
-          Full-Stack Developer
+        <p className="text-md font-bold text-gray-500 uppercase tracking-wider mb-2">
+          {user.data.gender}
         </p>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Building responsive MERN applications. Currently focused on React
-          Router and Tailwind CSS. Always open to collaborating on new web
-          projects.
-        </p>
+        <div className="self-end italic">
+          <p className="text-lg font-bold text-orange-500 tracking-wider">
+            {user.data.about}
+          </p>
+          <p className="text-xs font-semibold  text-gray-500 mb-2">
+            Skill-set: {user.data.skills}
+          </p>
+        </div>
 
         <div className="flex gap-3 mt-auto pt-2">
           <button className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-colors">
