@@ -15,7 +15,6 @@ function ProfileEdit() {
   });
   const { errors } = formState;
   const navigate = useNavigate();
-  const base_url = BASE_URL;
 
   // a event handler function to convert the image file to its url
   function handlePhotoUrl(e) {
@@ -58,7 +57,7 @@ function ProfileEdit() {
       }
     });
 
-    const res = await fetch(`${base_url}/profile/edit`, {
+    const res = await fetch(`${BASE_URL}/profile/edit`, {
       method: "PATCH",
       body: formData,
       credentials: "include",
@@ -73,7 +72,7 @@ function ProfileEdit() {
   const displayUrl =
     imageUrl.startsWith("http") || imageUrl.startsWith("blob")
       ? imageUrl
-      : `${base_url}${imageUrl}`;
+      : `${BASE_URL}${imageUrl}`;
 
   return (
     <>

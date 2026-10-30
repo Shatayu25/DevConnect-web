@@ -6,7 +6,6 @@ import { BASE_URL } from "../utils/constants";
 function ProfileView() {
   const moveBack = useBack();
   const navigate = useNavigate();
-  const base_url = BASE_URL;
   const { user } = useAuth();
 
   function handleClick() {
@@ -15,7 +14,7 @@ function ProfileView() {
 
   const photoUrl = user.data.photoUrl.startsWith("http")
     ? user.data.photoUrl
-    : `${base_url}${user.data.photoUrl}`;
+    : `${BASE_URL}${user.data.photoUrl}`;
 
   return (
     <>
