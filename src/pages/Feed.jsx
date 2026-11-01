@@ -32,7 +32,7 @@ function Feed() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center w-full font-lato">
       {/* safety check if no more users present */}
-      {feed[0] ? (
+      {feed.length ? (
         <Card
           data={feed[0]}
           handleIncrease={handleIncrease}
