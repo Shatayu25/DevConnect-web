@@ -15,7 +15,7 @@ function Profile() {
     <>
       <button
         onClick={handleClick}
-        className="flex items-center gap-1 rounded-lg bg-orange-500 relative px-4 py-2"
+        className="flex items-center gap-1 text-[11px] md:text-base rounded-lg bg-orange-500 relative px-1 py-1 md:px-4 md:py-2"
       >
         <span>
           <FaRegUser />

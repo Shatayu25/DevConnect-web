@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 function Panel() {
   return (
-    <div className="border shadow-md flex gap-2 absolute top-4 left-6 p-2">
+    <div className="border shadow-md text-[10px] md:text-base lg:text-xl flex lg:gap-2 absolute top-1 left-2 lg:top-4 lg:left-6 p-[1px] lg:p-2">
       <Link
         to="/user/requests/received"
-        className="flex items-center gap-1 p-1 hover:bg-slate-100 transition-all"
+        className="flex items-center gap-[2px] p-[2px] md:gap-1 md:p-1 hover:bg-slate-100 transition-all"
       >
         <span>
           <FaUserPlus />
@@ -15,7 +15,7 @@ function Panel() {
       </Link>
       <Link
         to="/user/connections"
-        className="flex items-center gap-1 p-1 hover:bg-slate-100 transition-all"
+        className="flex items-center gap-[2px] p-[2px] md:gap-1 md:p-1  hover:bg-slate-100 transition-all"
       >
         <span>
           <FaUserFriends />

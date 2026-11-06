@@ -28,29 +28,29 @@ function PasswordEdit() {
     <>
       <button
         onClick={moveBack}
-        className="bg-orange-500 hover:bg-orange-600 transition-all rounded-full text-sm w-fit px-4 py-2 absolute top-4 left-3"
+        className="bg-orange-500 hover:bg-orange-600 transition-all rounded-full text-[10px] md:text-sm lg:text-base w-fit px-2 py-1 md:px-4 md:py-2 absolute top-4 left-3"
       >
         &larr; Back
       </button>
       <div className="flex flex-col items-center justify-center min-h-screen font-lato bg-gray-50 p-4">
-        <p className="text-lg text-orange-500 font-bold mb-4">
+        <p className="text-sm md:text-lg lg:text-xl text-orange-500 font-bold mb-4">
           Change Password
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-full max-w-md bg-white p-8 gap-5 rounded-2xl shadow-lg border border-gray-100"
+          className="flex flex-col w-full max-w-md bg-white p-5 gap-5 rounded-2xl shadow-lg border border-gray-100"
         >
           <div className="flex flex-col gap-1">
             <label
               htmlFor="new-password"
-              className="text-sm font-semibold text-gray-700"
+              className="text-xs md:text-sm font-semibold text-gray-700"
             >
               Enter new password
             </label>
             <input
               type="password"
               id="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
+              className="w-full px-2 py-1 md:px-4 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all text-[13px] md:text-base lg:text-lg"
               placeholder="••••••••"
               {...register("password", {
                 required: "Password is required",
@@ -70,7 +70,7 @@ function PasswordEdit() {
           </div>
           <button
             type="submit"
-            className="mt-4 w-fit mx-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors"
+            className="mt-2 w-fit text-[12px] md:text-base mx-auto bg-orange-500 hover:bg-orange-600 text-white md:font-bold py-2 px-3 md:py-3 md:px-4 rounded-xl transition-colors"
           >
             Save
           </button>

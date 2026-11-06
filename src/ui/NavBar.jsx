@@ -27,18 +27,18 @@ function NavBar({ handleClick }) {
   }
 
   return (
-    <ul className="bg-orange-500 absolute px-4 py-1 z-10 rounded-sm right-6 top-12 flex flex-col gap-2">
-      <li>
-        <Link to="/profile/view" onClick={handleClick}>
+    <ul className="bg-orange-500 absolute px-1 md:px-4 py-1 z-10 rounded-sm right-3 top-8 md:right-5 md:top-12 flex flex-col gap-2">
+      <li className="text-[10px] md:text-base">
+        <Link to="/profile/view"  onClick={handleClick}>
           View profile
         </Link>
       </li>
-      <li>
-        <Link to="/profile/edit/password" onClick={handleClick}>
+      <li className="text-[10px] md:text-base">
+        <Link to="/profile/edit/password"  onClick={handleClick}>
           Edit Password
         </Link>
       </li>
-      <li>
+      <li className="text-[10px] md:text-base">
         <button onClick={handleLogout}>Logout</button>
       </li>
     </ul>

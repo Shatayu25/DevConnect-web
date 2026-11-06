@@ -22,32 +22,32 @@ function Card({ data, handleIncrease }) {
   }
 
   return (
-    <div className="bg-white flex flex-col rounded-2xl shadow-xl border border-gray-100 w-full max-w-sm overflow-hidden my-10">
+    <div className="bg-white flex flex-col rounded-2xl shadow-xl border border-gray-100 w-[92%] md:w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto overflow-hidden my-6 md:my-10 transition-all">
       <img
         src={photoUrl}
-        className="w-full h-72 object-cover object-center bg-gray-100"
+        className="w-full h-56 md:h-72 lg:h-80 object-cover object-center bg-gray-100 transition-all"
         alt="User profile"
       />
 
-      <div className="flex flex-col p-6 gap-1">
+      <div className="flex flex-col p-4 md:p-6 lg:p-8 gap-1 md:gap-2">
         <div className="flex justify-between items-baseline mb-1">
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-xl md:text-3xl font-bold text-slate-800">
             {data.firstName}&nbsp;{data.lastName}
           </h2>
-          <span className="text-lg font-semibold text-gray-500">
+          <span className="text-base md:text-xl font-semibold text-gray-500">
             {data.age}
           </span>
         </div>
 
-        <p className="text-md font-bold text-gray-500 uppercase tracking-wider mb-2">
+        <p className="text-sm md:text-base font-bold text-gray-500 uppercase tracking-wider mb-2">
           {data.gender}
         </p>
 
-        <div className="self-end italic">
-          <p className="text-lg font-bold text-orange-500 tracking-wider">
+        <div className="self-end italic text-right mb-4">
+          <p className="text-base md:text-xl font-bold text-orange-500 tracking-wider">
             {data.about}
           </p>
-          <p className="text-xs font-semibold  text-gray-500 mb-2">
+          <p className="text-xs md:text-base font-semibold text-gray-500 mt-1">
             Skill-set: {data.skills}
           </p>
         </div>
@@ -55,13 +55,13 @@ function Card({ data, handleIncrease }) {
         <div className="flex gap-3 mt-auto pt-2">
           <button
             onClick={handleIgnore}
-            className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-colors"
+            className="flex-1 py-2.5 md:py-4 rounded-xl border border-gray-200 text-gray-600 font-semibold hover:bg-gray-50 transition-colors text-sm md:text-lg lg:text-xl"
           >
             Ignore
           </button>
           <button
             onClick={handleConnect}
-            className="flex-1 py-3 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-colors shadow-md shadow-orange-500/20"
+            className="flex-1 py-2.5 md:py-4 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-colors shadow-md shadow-orange-500/20 text-sm md:text-lg lg:text-xl"
           >
             Connect
           </button>

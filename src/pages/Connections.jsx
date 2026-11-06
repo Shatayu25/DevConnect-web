@@ -31,7 +31,7 @@ function Connections() {
     <>
       <button
         onClick={moveBack}
-        className="bg-orange-500 hover:bg-orange-600 transition-all rounded-full text-sm w-fit px-4 py-2 absolute top-4 left-3"
+        className="bg-orange-500 hover:bg-orange-600 transition-all rounded-full text-[10px] md:text-sm lg:text-base w-fit px-2 py-1 md:px-4 md:py-2 absolute top-4 left-3"
       >
         &larr; Back
       </button>
